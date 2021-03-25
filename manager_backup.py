@@ -44,7 +44,7 @@ class ManagerBackups:
             command = f'mv {path} {new_name}'
             os.system(command)
             # move o arquivo pro diretório
-            command = f'mv {new_name} {dir + name_dir}'
+            command = f'mv -f {new_name} {dir + name_dir}'
             os.system(command)
 
 
