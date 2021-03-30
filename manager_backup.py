@@ -39,9 +39,11 @@ class ManagerBackups:
 
             year = str(date.today().year)
             if year not in path:
-                new_name = str(date) + '__' + path.split('.cfg')[0] + '.cfg'
+                new_name = str(date) + '__' + path.split('/')[-1]
+                # new_name = path.split('.cfg')[0] + '_' + str(date) + '.cfg'
             else:
                 new_name = path
+
             # cria o diretório
             self.__create_dir_if_no_exist(name_dir)
 
@@ -49,9 +51,11 @@ class ManagerBackups:
             if year not in path:
                 command = f'mv {path} {new_name}'
                 os.system(command)
+                print(command)
 
             # move o arquivo pro diretório
             command = f'mv {new_name} {dir + name_dir}'
+            print(command)
             os.system(command)
 
 
