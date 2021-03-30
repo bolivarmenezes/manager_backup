@@ -45,16 +45,13 @@ class ManagerBackups:
             # cria o diretório
             self.__create_dir_if_no_exist(name_dir)
 
-
             # renomeia o arquivo, para adicionar a data, se ainda não foi renomeado
             if year not in path:
                 command = f'mv {path} {new_name}'
                 os.system(command)
 
-
             # move o arquivo pro diretório
             command = f'mv {new_name} {dir + name_dir}'
-            print(command)
             os.system(command)
 
 
