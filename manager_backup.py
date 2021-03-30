@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 class ManagerBackups:
 
     def __init__(self):
-        self.path_dir = '/home/bolivar/backup_switches/'
+        self.path_dir = '/home/debian/backup_switches/'
 
     def __get_all_files_and_date(self) -> dict:
         file_and_date: dict = {}
@@ -32,20 +32,29 @@ class ManagerBackups:
 
     def manager_bkp(self):
         file_and_date = self.__get_all_files_and_date()
-        aux = 0
         for path in file_and_date.keys():
             date = file_and_date[path]
             dir = path.split('/st')[0] + '/'
             name_dir = path.split('/')[-1].split('_')[0].split('.')[0]
-            new_name = path.split('.cfg')[0] + '_' + str(date) + '.cfg'
+
+            year = str(date.today().year)
+            if year not in path:
+                new_name = path.split('.cfg')[0] + '_' + str(date) + '.cfg'
+            else:
+                new_name = path
             # cria o diretório
             self.__create_dir_if_no_exist(name_dir)
-            # renomeia o arquivo, para adicionar a data
-            command = f'mv {path} {new_name}'
-            #print(command)
-            os.system(command)
+
+
+            # renomeia o arquivo, para adicionar a data, se ainda não foi renomeado
+            if year not in path:
+                command = f'mv {path} {new_name}'
+                os.system(command)
+
+
             # move o arquivo pro diretório
-            command = f'mv -f {new_name} {dir + name_dir}'
+            command = f'mv {new_name} {dir + name_dir}'
+            print(command)
             os.system(command)
 
 
