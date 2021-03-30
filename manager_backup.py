@@ -39,7 +39,7 @@ class ManagerBackups:
 
             year = str(date.today().year)
             if year not in path:
-                new_name = str(date) + '_' + path.split('.cfg')[0] + '.cfg'
+                new_name = str(date) + '__' + path.split('.cfg')[0] + '.cfg'
             else:
                 new_name = path
             # cria o diretório
