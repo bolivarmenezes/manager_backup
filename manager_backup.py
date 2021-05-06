@@ -66,10 +66,9 @@ class ManagerBackups:
 
             # move o arquivo pro diretório
             command = f'mv {dir}{new_name} {dir}{name_dir}'
+
             print(command)
-
             os.system(command)
-
 
 if __name__ == '__main__':
     mb = ManagerBackups()
