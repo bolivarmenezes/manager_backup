@@ -59,7 +59,7 @@ class ManagerBackups:
 
             # renomeia o arquivo, para adicionar a data, se ainda não foi renomeado
             if year not in path:
-                command = f'mv {path} {new_name}'
+                command = f'mv {path} {dir}{new_name}'
                 os.system(command)
                 time.sleep(2)
                 print(new_name)
@@ -67,13 +67,11 @@ class ManagerBackups:
                 print(command)
 
             # move o arquivo pro diretório
-            command = f'mv {new_name} {dir + name_dir}'
+            command = f'mv {dir}{new_name} {name_dir}'
             print(command)
             print('vai mover agora')
 
-            time.sleep(10)
-
-            os.system(command)
+            #os.system(command)
 
 
 if __name__ == '__main__':
