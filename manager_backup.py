@@ -1,5 +1,4 @@
 import os
-import time
 from datetime import datetime, timezone
 
 
@@ -15,8 +14,6 @@ class ManagerBackups:
                 cfg = file.split('.')[1]
                 if cfg == 'cfg':
                     path_file = self.path_dir + file
-                    time.sleep(2)
-                    print(path_file)
                     stat_result = os.stat(path_file)
                     date = datetime.fromtimestamp(stat_result.st_mtime, tz=timezone.utc).date()
                     file_and_date[path_file] = date
@@ -39,20 +36,13 @@ class ManagerBackups:
             date = file_and_date[path]
             dir = path.split('/st')[0] + '/'
             name_dir = path.split('/')[-1].split('_')[0].split('.')[0]
-            time.sleep(2)
-            print(f'name dir: {name_dir}')
+
             year = str(date.today().year)
             if year not in path:
                 new_name = str(date) + '__' + path.split('/')[-1]
-                time.sleep(2)
-                print(new_name)
-                print('entrou no primeiroo if')
                 # new_name = path.split('.cfg')[0] + '_' + str(date) + '.cfg'
             else:
                 new_name = path
-                time.sleep(2)
-                print(new_name)
-                print('entrou no segundo if')
 
             # cria o diretório
             self.__create_dir_if_no_exist(name_dir)
@@ -61,18 +51,11 @@ class ManagerBackups:
             if year not in path:
                 command = f'mv {path} {new_name}'
                 os.system(command)
-                time.sleep(2)
-                print(new_name)
-                print('renomeia o arquivo, para adicionar a data, se ainda não foi renomeado')
                 print(command)
 
             # move o arquivo pro diretório
             command = f'mv {new_name} {dir + name_dir}'
             print(command)
-            print('vai mover agora')
-
-            time.sleep(10)
-
             os.system(command)
 
 
