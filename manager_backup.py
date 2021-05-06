@@ -69,6 +69,10 @@ class ManagerBackups:
             # move o arquivo pro diretório
             command = f'mv {new_name} {dir + name_dir}'
             print(command)
+            print('vai mover agora')
+
+            time.sleep(10)
+
             os.system(command)
 
 
