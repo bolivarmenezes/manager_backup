@@ -31,6 +31,9 @@ class ManagerBackups:
             command = 'mkdir ' + new_dir
             print(f"Criando o seguinte diretório: {command}")
             os.system(command)
+            command = f"chown debian:debian -R {new_dir}"
+            print(command)
+            os.system(command)
         return True
 
     def manager_bkp(self):
@@ -62,9 +65,13 @@ class ManagerBackups:
                 print('renomeia o arquivo, para adicionar a data, se ainda não foi renomeado')
                 print(command)
 
+            #mudar de dono
+            command = f"chown debian:debian -R {dir}{new_name}"
+            print(command)
+            os.system(command)
+
             # move o arquivo pro diretório
             command = f'mv {dir}{new_name} {dir}{name_dir}/'
-
             print(f"move o arquivo para o diretório: {command}")
             os.system(command)
 
