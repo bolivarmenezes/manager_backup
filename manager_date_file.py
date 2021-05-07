@@ -1,40 +1,30 @@
 import os
 from datetime import datetime, timezone
+import glob
 
 
 class ManagerBackups:
 
     def __init__(self):
-        self.path_dir = '/home/debian/backup_switches/'
+        self.path_dir = '/home/bolivar/backup_switches/'
         print(f"diretório: {self.path_dir}")
 
-    def __get_all_files_and_date(self) -> dict:
+    def get_last_date(self):
         file_and_date: dict = {}
-        for file in os.listdir(self.path_dir):
-            try:
-                cfg = file.split('.')[1]
-                if cfg == 'cfg':
-                    path_file = self.path_dir + file
-                    print(f" Caminho dos arquivos: {path_file}")
-                    stat_result = os.stat(path_file)
-                    date = datetime.fromtimestamp(stat_result.st_mtime, tz=timezone.utc).date()
-                    print(f"Datas: {date}")
-                    file_and_date[path_file] = date
-            except IndexError:
-                pass
-        return file_and_date
+        all_paths = self.__get_path_dir()
+        # para cada diretório, varre os arquivos e ordena (decrescente) por data
+        for path in all_paths:
+            files = glob.glob(path + '/*')
+            for file in files:
+                print(file)
 
-    def __create_dir_if_no_exist(self, name) -> bool:
-        new_dir = self.path_dir + name
-        exist = os.path.exists(new_dir)
-        if exist is False:
-            command = 'mkdir ' + new_dir
-            print(f"Criando o seguinte diretório: {command}")
-            os.system(command)
-            command = f"chown debian:debian -R {new_dir}"
-            print(command)
-            os.system(command)
-        return True
+    def __get_path_dir(self):
+        dir = glob.glob(self.path_dir + '/*')
+        path_dir = []
+        for path in dir:
+            # print(path)
+            path_dir.append(path)
+        return path_dir
 
     def manager_bkp(self):
         print(f'função do manager_bkp')
@@ -65,7 +55,7 @@ class ManagerBackups:
                 print('renomeia o arquivo, para adicionar a data, se ainda não foi renomeado')
                 print(command)
 
-            #mudar de dono
+            # mudar de dono
             command = f"chown debian:debian -R {dir}{new_name}"
             print(command)
             os.system(command)
@@ -78,4 +68,4 @@ class ManagerBackups:
 
 if __name__ == '__main__':
     mb = ManagerBackups()
-    dates = mb.manager_bkp()
+    dates = mb.get_last_date()
