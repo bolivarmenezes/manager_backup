@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 class ManagerBackups:
 
     def __init__(self):
-        self.path_dir = '/home/bolivar/backup_switches/'
+        self.path_dir = '/home/debian/backup_switches/'
 
     def __delete_old(self, path_dir) -> dict:
         cont = 0
